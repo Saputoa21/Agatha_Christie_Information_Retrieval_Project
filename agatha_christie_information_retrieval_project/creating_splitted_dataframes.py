@@ -9,74 +9,10 @@ from preprocessing_functions import chapter_regex
 
 from preprocessing_functions import save_dataframe_to_csv
 
-from creating_book_dataframe_from_zip import agatha_chrisite_books_corpus_df
+from agatha_christie_information_retrieval_project.creating_book_dataframe_from_zip import agatha_chrisite_books_corpus_df
 
 
-# # function to create splitted dataframe for index
-# def splitting_books_for_index(df, book_ids, chapter_regex, paragraph_num, output_folder=None):
-#     """
-#     Process books from the given DataFrame by extracting chapters and paragraphs,
-#     with an option to save each book's processed data to a specified folder.
-
-#     Parameters:
-#         df (pd.DataFrame): The DataFrame containing 'book_id', 'book_title', 'content'.
-#         book_ids (list): List of integer book IDs to process.
-#         chapter_regex (str): Regex pattern to identify chapters.
-#         paragraph_num (int): Number of paragraphs to extract per chapter.
-#         output_folder (str or Path, optional): Path to the folder where processed
-#                                                book DataFrames will be saved as CSV.
-#                                                If None, files are not saved.
-#     Returns:
-#         pd.DataFrame: Concatenated DataFrame of all processed book data.
-#     """
-#     all_books_df = []
-
-#     # If an output_folder is provided, ensure it's a Path object and exists
-#     if output_folder:
-#         output_folder = Path(output_folder)
-#         output_folder.mkdir(parents=True, exist_ok=True)
-#         print(f"Output will be saved to: {output_folder}")
-
-#     for i in book_ids:
-#         try:
-#             # Fetch book data
-#             book_text = df.iloc[i]["content"]
-#             book_title = df.iloc[i]["book_title"]
-#             book_id = int(df.iloc[i]["book_id"])
-
-#             # Remove metadata
-#             book_wo_metadata = delete_metadata(book_text)
-
-#             # Chapter list
-#             chapter_list = find_chapters(book_wo_metadata, chapter_regex)
-
-#             # Extract main content
-#             book_main_content = find_main_book_content(book_wo_metadata, chapter_list)
-
-#             # Debug output
-#             print(f"Chapter list for {book_title} (ID {book_id}): chapters: {chapter_list}, total: {len(chapter_list)}")
-
-#             # Split into chapters and paragraphs
-#             book_df = extract_chapters_and_paragraphs(book_main_content, chapter_list, book_id, book_title, paragraph_num)
-#             all_books_df.append(book_df)
-
-#             # Save the book's DataFrame if output_folder is specified
-#             if output_folder:
-#                 base_filename = f"book_{book_id}_{book_title.replace(' ', '_').replace('/', '_')}"
-#                 # Save to CSV
-#                 csv_filename = f"{base_filename}.csv"
-#                 save_dataframe_to_csv(book_df, output_folder, csv_filename)
-#                 # Save to Excel
-#                 excel_filename = f"{base_filename}.xlsx"
-#                 save_dataframe_to_excel(book_df, output_folder, excel_filename)
-#                 output_filename = f"book_{book_id}_{book_title.replace(' ', '_').replace('/', '_')}.csv"
-
-#         except Exception as e:
-#             print(f"[ERROR] Book ID {df.iloc[i]['book_id']} - {df.iloc[i]['book_title']}: {e}")
-
-#     return pd.concat(all_books_df, ignore_index=True)
-
-
+# function to create splitted dataframe for index
 def splitting_books_for_index(df, book_ids, chapter_regex, paragraph_num):
     """
     Process books from the given DataFrame by extracting chapters and paragraphs.

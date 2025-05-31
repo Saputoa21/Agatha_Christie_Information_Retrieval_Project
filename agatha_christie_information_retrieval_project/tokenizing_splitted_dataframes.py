@@ -10,19 +10,19 @@ print(spacy.info())  # Lists installed models
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 punctuation = set(string.punctuation)
-new_signs = ['“', '‘', '’', '”', '—']  #specific signs that are not processed with just a punctuation list
+# new_signs = ['“', '‘', '’', '”', '—']  #specific signs that are not processed with just a punctuation list
 
-# print(stop_words)
-# print(punctuation)
-# print(type(punctuation))
-# print(len(punctuation))
+print(stop_words)
+print(punctuation)
+print(type(punctuation))
+print(len(punctuation))
 
 # functions for tokenizing the dataframes
 def tokenize_book(book, stop_words, punctuation, lemmatisation=False):
     clean_book_tokens = []
     processed_book = nlp(book)
     for token in processed_book:
-        if token.text in punctuation or token.text in stop_words or token.text in new_signs:
+        if token.text in punctuation or token.text in stop_words: # or token.text in new_signs:
             continue
         if lemmatisation:
             clean_book_tokens.append(token.lemma_)
