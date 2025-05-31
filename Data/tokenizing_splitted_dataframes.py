@@ -5,8 +5,6 @@ from nltk.corpus import stopwords
 # ! python -m spacy download en_core_web_trf
 import spacy
 nlp = spacy.load("en_core_web_trf")
-import en_core_web_trf
-nlp = en_core_web_trf.load()
 print(spacy.info())  # Lists installed models
 
 nltk.download('stopwords')

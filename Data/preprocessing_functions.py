@@ -138,24 +138,6 @@ def extract_chapters_and_paragraphs(text, chapters_list, book_id=1, book_title="
     return pd.DataFrame(final_rows)
 
 #saving dataframes to other files 
-def save_dataframe_to_excel(df, output_dir, filename):
-    """
-    Save a DataFrame to an Excel file in a specified directory.
-
-    Parameters:
-        df (pd.DataFrame): The DataFrame to save.
-        output_dir (str or Path): Directory where the file should be saved.
-        filename (str): Name of the Excel file (e.g., 'processed_books.xlsx').
-    """
-    output_path = Path(output_dir)
-    output_path.mkdir(parents=True, exist_ok=True)  # Create folder if it doesn't exist
-
-    file_path = output_path / filename
-    df.to_excel(file_path, index=False)
-
-    print(f"DataFrame saved to {file_path}")
-
-
 def save_dataframe_to_csv(df, output_dir, filename):
     """
     Save a DataFrame to an Excel file in a specified directory.
@@ -169,6 +151,6 @@ def save_dataframe_to_csv(df, output_dir, filename):
     output_path.mkdir(parents=True, exist_ok=True)  # Create folder if it doesn't exist
 
     file_path = output_path / filename
-    df.to_excel(file_path, index=False)
+    df.to_csv(file_path, index=False)
 
     print(f"DataFrame saved to {file_path}")
