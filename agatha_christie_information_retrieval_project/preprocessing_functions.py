@@ -155,24 +155,3 @@ def save_dataframe_to_csv(df, output_dir, filename):
     df.to_csv(file_path, index=False)
 
     print(f"DataFrame saved to {file_path}")
-
-#storing inverted index in a pickle file
-def save_index_as_pickle(index, output_dir, filename):
-    output_path = Path(output_dir)
-    output_path.mkdir(parents=True, exist_ok=True)
-    full_path = output_path / filename
-    with open(full_path, 'wb') as f: #binary write mode ('wb')
-        pickle.dump(index, f) #serializing the index to the file
-        print(f"Pickle saved: {full_path}")
-
-# #binary read mode ('rb')
-# with open(filename, 'rb') as f:
-#     #deserializing the object from the file
-#     loaded_inverted_index = pickle.load(f)
-
-# #analyzing
-# print("\nInverted index loaded from the pickle file:")
-# print(type(loaded_inverted_index))
-# print("Length of term list", len(loaded_inverted_index))
-# total_postings = sum(len(postings) for postings in inverted_index.values())
-# print("Total postings:", total_postings)

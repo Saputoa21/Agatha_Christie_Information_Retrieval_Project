@@ -54,12 +54,12 @@ for file in csv_files:
     print(f"Saved: {output_path}")
 
 
-# #preprocessing all books with lemmatisation
+# preprocessing all books with lemmatisation
 input_dir = Path("Data\splitted_dataframes_with_dif_numbers")
 output_dir = Path("Data\splitted_dataframes_with_dif_numbers_tokenized_lemmatised")
 output_dir.mkdir(exist_ok=True)
 
-csv_files = sorted(input_dir.glob("*.csv"), key=lambda f: f.stat().st_mtime, reverse=True)[:3]
+csv_files = sorted(input_dir.glob("*.csv"))
 
 for file in csv_files:
     splitted_book = pd.read_csv(file)
