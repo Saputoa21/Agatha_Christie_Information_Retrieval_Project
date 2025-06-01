@@ -69,7 +69,8 @@ csv_files = sorted(input_dir.glob("*.csv"))
 
 for file in csv_files:
     inverted_index = build_inverted_index_from_tokenized_csv(file) 
-    pickle_filename = f"inverted_index_{file.stem}.pkl"
+    paragraph_tag = "_".join(file.stem.split("_")[-2:]) #reusing the step makes the file too long and can not be commited anymore
+    pickle_filename = f"inverted_index_lemmatized_{paragraph_tag}.pkl"
     save_index_as_pickle(inverted_index, output_dir, pickle_filename)
 
 # just tokenised
@@ -78,5 +79,6 @@ csv_files_2 = sorted(input_dir_2.glob("*.csv"))
 
 for file in csv_files_2:
     inverted_index = build_inverted_index_from_tokenized_csv(file) 
-    pickle_filename = f"inverted_index_{file.stem}.pkl"
+    paragraph_tag = "_".join(file.stem.split("_")[-2:])
+    pickle_filename = f"inverted_index_tokenized_{paragraph_tag}.pkl"
     save_index_as_pickle(inverted_index, output_dir, pickle_filename)
