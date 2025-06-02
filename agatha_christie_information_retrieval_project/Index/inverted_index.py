@@ -13,18 +13,6 @@ def save_index_as_pickle(index, output_dir, filename):
         pickle.dump(index, f) #serializing the index to the file
         print(f"Pickle saved: {full_path}")
 
-# #binary read mode ('rb')
-# with open(filename, 'rb') as f:
-#     #deserializing the object from the file
-#     loaded_inverted_index = pickle.load(f)
-
-# #analyzing
-# print("\nInverted index loaded from the pickle file:")
-# print(type(loaded_inverted_index))
-# print("Length of term list", len(loaded_inverted_index))
-# total_postings = sum(len(postings) for postings in inverted_index.values())
-# print("Total postings:", total_postings)
-
 # Create a list where each element is the 'paragraph_text' from each row
 def build_inverted_index_from_tokenized_csv(csv_file):
     all_tokens = []
