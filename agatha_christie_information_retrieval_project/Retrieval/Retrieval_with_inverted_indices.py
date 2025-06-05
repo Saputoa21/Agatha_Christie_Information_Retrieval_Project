@@ -63,7 +63,7 @@ def query_inverted_index(query, inverted_index, stop_words, punctuation, lemmati
     return sorted(result)
 
 # Example usage with one index
-query = "Hercule Poirot"
+query = "The little grey cells!"
 loaded_index = next(iter(indices_dict.values()))  # Get the first index's data, not the filename
 
 # Query without lemmatization
@@ -89,31 +89,102 @@ for index_name, inverted_index in indices_dict.items():
 
 # Plotting the results
 
-# For Tokenization
+# Combined Plot: Tokenization vs. Lemmatization
+plt.figure(figsize=(12, 6))
+
 indices = list(results_dict_tokenization.keys())
 num_documents_tokenization = list(results_dict_tokenization.values())
-
-plt.figure(figsize=(10, 6))
-plt.plot(indices, num_documents_tokenization, marker='o', linestyle='-', color='b', label='Documents Retrieved (Tokenization)')
-
-plt.title('Number of Retrieved Documents by Index (Tokenization)', fontsize=14)
-plt.xlabel('Index Name', fontsize=12)
-plt.ylabel('Number of Documents', fontsize=12)
-plt.xticks(rotation=45)
-plt.legend()
-plt.tight_layout()
-plt.show()
-
-# For Lemmatization
 num_documents_lemmatization = list(results_dict_lemmatization.values())
 
-plt.figure(figsize=(10, 6))
-plt.plot(indices, num_documents_lemmatization, marker='o', linestyle='-', color='g', label='Documents Retrieved (Lemmatization)')
+plt.plot(indices, num_documents_tokenization, marker='o', linestyle='-', label='Tokenization', color='blue')
+plt.plot(indices, num_documents_lemmatization, marker='s', linestyle='-', label='Lemmatization', color='green')
 
-plt.title('Number of Retrieved Documents by Index (Lemmatization)', fontsize=14)
-plt.xlabel('Index Name', fontsize=12)
-plt.ylabel('Number of Documents', fontsize=12)
-plt.xticks(rotation=45)
+plt.title(f"Document Retrieval per Index for Query: \"{query}\"", fontsize=14)
+plt.xlabel('Index Filename', fontsize=12)
+plt.ylabel('Number of Retrieved Documents', fontsize=12)
+plt.xticks(rotation=45, ha='right')
 plt.legend()
+plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
+
+plt.show()
+
+
+# Another query example, e.g. personal names which ashould not change in lemmatisation
+query = "Hercule Poirot"
+
+results_dict_tokenization = {}
+results_dict_lemmatization = {}
+
+for index_name, inverted_index in indices_dict.items():
+    results_tokenization = query_inverted_index(query, inverted_index, stop_words, punctuation)
+    results_dict_tokenization[index_name] = len(results_tokenization)
+
+    results_lemmatization = query_inverted_index(query, inverted_index, stop_words, punctuation, lemmatisation=True)
+    results_dict_lemmatization[index_name] = len(results_lemmatization)
+
+# Combined Plot: Tokenization vs. Lemmatization
+plt.figure(figsize=(12, 6))
+
+indices = list(results_dict_tokenization.keys())
+num_documents_tokenization = list(results_dict_tokenization.values())
+num_documents_lemmatization = list(results_dict_lemmatization.values())
+
+plt.plot(indices, num_documents_tokenization, marker='o', linestyle='-', label='Tokenization', color='blue')
+plt.plot(indices, num_documents_lemmatization, marker='s', linestyle='-', label='Lemmatization', color='green')
+
+plt.title(f"Document Retrieval per Index for Query: \"{query}\"", fontsize=14)
+plt.xlabel('Index Filename', fontsize=12)
+plt.ylabel('Number of Retrieved Documents', fontsize=12)
+plt.xticks(rotation=45, ha='right')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+
+plt.show()
+
+
+# Another query example, e.g. question
+query = "Who is the man in the brown suit?"
+loaded_index = next(iter(indices_dict.values()))  # Get the first index's data, not the filename
+
+# Query without lemmatization
+results = query_inverted_index(query, loaded_index, stop_words, punctuation)
+print(f"Documents matching '{query}': {results}")
+print(f"Number of Documents matching: {len(results)}\n")
+
+# Query with lemmatization
+results_lemmatized = query_inverted_index(query, loaded_index, stop_words, punctuation, lemmatisation=True)
+print(f"Documents matching '{query}' with lemmatization: {results_lemmatized}")
+print(f"Number of Documents matching (lemmatized): {len(results_lemmatized)}\n")
+
+# Analyzing all indices with tokenization and lemmatization
+results_dict_tokenization = {}
+results_dict_lemmatization = {}
+
+for index_name, inverted_index in indices_dict.items():
+    results_tokenization = query_inverted_index(query, inverted_index, stop_words, punctuation)
+    results_dict_tokenization[index_name] = len(results_tokenization)
+
+    results_lemmatization = query_inverted_index(query, inverted_index, stop_words, punctuation, lemmatisation=True)
+    results_dict_lemmatization[index_name] = len(results_lemmatization)
+    
+# Combined Plot: Tokenization vs. Lemmatization
+plt.figure(figsize=(12, 6))
+
+indices = list(results_dict_tokenization.keys())
+num_documents_tokenization = list(results_dict_tokenization.values())
+num_documents_lemmatization = list(results_dict_lemmatization.values())
+
+plt.plot(indices, num_documents_tokenization, marker='o', linestyle='-', label='Tokenization', color='blue')
+plt.plot(indices, num_documents_lemmatization, marker='s', linestyle='-', label='Lemmatization', color='green')
+
+plt.title(f"Document Retrieval per Index for Query: \"{query}\"", fontsize=14)
+plt.xlabel('Index Filename', fontsize=12)
+plt.ylabel('Number of Retrieved Documents', fontsize=12)
+plt.xticks(rotation=45, ha='right')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+
 plt.show()
