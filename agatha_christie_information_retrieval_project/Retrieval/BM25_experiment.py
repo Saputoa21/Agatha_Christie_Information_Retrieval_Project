@@ -3,7 +3,6 @@ from rank_bm25 import BM25Okapi
 from retrieval_with_inverted_indices import tokenize_query, stop_words, punctuation
 from pathlib import Path
 
-# Define full or relative paths to all 4 CSV files
 csv_files = [
     Path('Data/splitted_dataframes_with_dif_numbers_tokenized/tokenized_Agatha_Christie_Corpus_Combined_Paragraphs_10.csv'),
     Path('Data/splitted_dataframes_with_dif_numbers_tokenized/tokenized_Agatha_Christie_Corpus_Combined_Paragraphs_15.csv'),
